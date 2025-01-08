@@ -1493,7 +1493,10 @@ header {
 
 .title1 {
   font: 46px/48px Great Vibes;
+  letter-spacing: 5px;
+  font-weight: bold;
 }
+
 
 .title1_2 {
   text-indent: -15px;
@@ -2666,3 +2669,53 @@ event file button
     width: 95%;
 }
 }
+
+/* ==============================
+footer
+========================== */
+
+/* Footer Section */
+.footer {
+  position: relative;
+  padding: 50px 0;
+  text-align: center;
+  background: linear-gradient(135deg, #f8cdda, #f1a7f1);
+  color: #ffffff;
+}
+
+.footer .thanks {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.footer .footer_txt {
+  font-size: 1rem;
+  margin-top: 10px;
+}
+
+.footer_social a {
+  color: #ffffff;
+  margin: 0 10px;
+  font-size: 1.5rem;
+  text-decoration: none;
+}
+
+.footer_social a:hover {
+  color: #f8cdda;
+}
+
+.copyrights a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.copyrights a:hover {
+  text-decoration: underline;
+}
+
+.footer {
+  background: url('img/Eraste_Ishimwe-2.png') no-repeat center center / cover;
+  background-color: #314f68; /* Add this for testing */
+}
+
