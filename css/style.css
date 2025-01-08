@@ -287,8 +287,6 @@ header {
   transition: width 1s;
 }
 
-.sub_img.active {
-}
 
 .sub_img:before {
   background: #FFF;
@@ -440,10 +438,6 @@ header {
   overflow: hidden;
   transition: opacity 0.3s;
   display: none
-}
-
-.player.vis {
-
 }
 
 .names {
@@ -2415,4 +2409,283 @@ Events
 
 .photo-overlay {
     opacity: 1;
+}
+
+/* ===================================
+    Audio
+==================================== */
+
+/* Styling for the control button */
+
+/* Control Button Styles */
+.audio-control {
+  position: fixed;
+  top: 30px;
+  right: 30px;
+  z-index: 9999;
+}
+
+.music-btn {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(5px);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.music-btn i {
+  color: white;
+  font-size: 20px;
+}
+
+.music-btn.playing {
+  animation: pulse 2s infinite;
+  background: rgba(226, 92, 103, 0.8);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.music-btn:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+
+/* Alert Popup Styles */
+.audio-prompt {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  width: auto;
+  height: auto;
+}
+
+.prompt-content {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 25px 40px;
+  border-radius: 30px;
+  text-align: center;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(5px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.prompt-content i {
+  font-size: 35px;
+  color: white;
+  margin-bottom: 15px;
+  animation: float 2s infinite;
+}
+
+.prompt-content p {
+  margin: 0;
+  font-size: 16px;
+  color: white;
+  font-family: 'Roboto Condensed', sans-serif;
+  letter-spacing: 0.5px;
+}
+
+/* Animations */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-5px); }
+  100% { transform: translateY(0px); }
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .audio-control {
+      top: 20px;
+      right: 20px;
+  }
+  
+  .music-btn {
+      width: 40px;
+      height: 40px;
+  }
+  
+  .music-btn i {
+      font-size: 18px;
+  }
+
+  .prompt-content {
+      padding: 20px 30px;
+  }
+
+  .prompt-content i {
+      font-size: 28px;
+  }
+
+  .prompt-content p {
+      font-size: 14px;
+  }
+}
+
+
+/* For mobile devices */
+@media (max-width: 768px) {
+  .home_intro {
+      background-attachment: scroll; /* Better performance on mobile */
+      background-position: center center;
+      background-size: contain; /* or adjust to 'cover' if needed */
+      height: 100vh;
+  }
+}
+
+/* For very small screens */
+@media (max-width: 480px) {
+  .home_intro {
+      background-size: contain;
+      background-position: center top;
+  }
+}
+
+
+
+/* ==================================
+event file button
+================================== */
+/* Box Container */
+
+.box {
+  text-align: center;
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.event-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  margin-top: 20px;
+  transition: background-color 0.3s;
+}
+
+.event-btn:hover {
+  background-color: #45a049;
+}
+
+.event-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+}
+
+/* .modal-content {
+  position: relative;
+  background-color: #fefefe;
+  margin: 5% auto;
+  padding: 0;
+  max-width: 80%;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+} */
+
+.modal-content {
+  position: relative;
+  background-color: #fefefe;
+  margin: 2% auto; /* Reduced from 5% to bring content higher */
+  padding: 30px 0 0 0;
+  max-width: 90vh; /* This will help maintain better proportions */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.close-btn {
+  position: absolute;
+  right: 10px;
+  top: 5px;
+  width: 30px;
+  height: 30px;
+  background-color: #ff4444;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  z-index: 1001;
+}
+
+.close-btn:hover {
+  background-color: #ff0000;
+  transform: scale(1.1);
+}
+
+/* .event-image {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0;
+} */
+
+.event-image {
+  max-width: 100%;
+  width: 100%; /* Added to ensure image fills container */
+  height: auto;
+  display: block;
+  margin: 0;
+  vertical-align: middle; /* Helps remove any unexpected spacing */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  /* .modal-content {
+      margin: 15% auto;
+      width: 90%;
+  } */
+
+  .modal-content {
+    margin: 10% auto;
+    width: 90%;
+    max-width: none; 
+}
+
+
+  .close-btn {
+      right: 10px;
+      top: 10px;
+      width: 25px;
+      height: 25px;
+      font-size: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  /* .modal-content {
+      margin: 20% auto;
+      width: 95%;
+  } */
+  .modal-content {
+    margin: 15% auto;
+    width: 95%;
+}
 }

@@ -32,6 +32,26 @@
 
 <body>
 
+        <!-- Hidden audio player with controls -->
+       <!-- Audio player -->
+        <audio id="background-music" autoplay loop>
+            <source src="img/Minani.mp3" type="audio/mp3">
+        </audio>
+
+        <!-- Initial prompt overlay -->
+        <div id="audio-prompt" class="audio-prompt">
+            <div class="prompt-content">
+                <i class="fa fa-music"></i>
+                <p>Click anywhere to enable music</p>
+            </div>
+        </div>
+
+        <!-- Regular audio control -->
+        <div class="audio-control">
+            <button class="music-btn">
+                <i class="fa fa-music"></i>
+            </button>
+        </div>
 
 <!-- Header -->
 <header>
@@ -100,10 +120,23 @@
         <!-- Intro Text -->
         <div class="box">
             <div class="title1 title1_2">Save the Date!</div>
-            <div class="title1"><span>10  -  05</span></div>
+            <div class="title1"><span>10 - 05</span></div>
             <div class="title0">2025</div>
             <div class="married_coundown"></div>
+            
+            <a href="#" class="event-btn" onclick="showEventDetails(event)">
+                <i class="fa fa-calendar"></i>
+                View Event Details
+            </a>
+    
+            <div id="eventModal" class="event-modal">
+                <div class="modal-content">
+                    <span class="close-btn" onclick="closeModal()">×</span>
+                    <img src="img/event.jpeg" alt="Event Details" class="event-image">
+                </div>
+            </div>
         </div>
+
         <a href="#married" class="intro_down"><span><i class="fa fa-angle-down"></i></span></a>
     </div>
     <div class="into_firefly"></div>
@@ -454,6 +487,108 @@
 
 </div>
 
+<!-- <script>
+    window.addEventListener('load', function() {
+        const audio = document.getElementById('background-music');
+        const musicBtn = document.querySelector('.music-btn');
+        let isPlaying = true;
+    
+        // Force play unmuted on load
+        function startAudio() {
+            audio.muted = false;
+            audio.play()
+                .then(() => {
+                    isPlaying = true;
+                    musicBtn.classList.add('playing');
+                })
+                .catch(() => {
+                    // If autoplay fails, we'll need user interaction
+                    isPlaying = false;
+                    musicBtn.classList.remove('playing');
+                });
+        }
+    
+        // Start playing immediately
+        startAudio();
+    
+        // Toggle button
+        musicBtn.addEventListener('click', function() {
+            if (isPlaying) {
+                audio.pause();
+                musicBtn.classList.remove('playing');
+            } else {
+                audio.play();
+                musicBtn.classList.add('playing');
+            }
+            isPlaying = !isPlaying;
+        });
+    });
+    </script> -->
+    
+    <script>
+        window.addEventListener('load', function() {
+            const audio = document.getElementById('background-music');
+            const musicBtn = document.querySelector('.music-btn');
+            const prompt = document.getElementById('audio-prompt');
+            let isPlaying = false;
+        
+            // Hide prompt and start music on click
+            document.addEventListener('click', function() {
+                if (!isPlaying) {
+                    audio.play()
+                        .then(() => {
+                            isPlaying = true;
+                            musicBtn.classList.add('playing');
+                            prompt.classList.add('hidden');
+                        })
+                        .catch(error => {
+                            console.log('Playback failed:', error);
+                        });
+                }
+            }, { once: true });
+        
+            // Music button toggle
+            musicBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                if (isPlaying) {
+                    audio.pause();
+                    musicBtn.classList.remove('playing');
+                } else {
+                    audio.play();
+                    musicBtn.classList.add('playing');
+                }
+                isPlaying = !isPlaying;
+            });
+        });
+        </script>
+
+<script>
+    function showEventDetails(event) {
+        event.preventDefault();
+        document.getElementById('eventModal').style.display = 'block';
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    }
+
+    function closeModal() {
+        document.getElementById('eventModal').style.display = 'none';
+        document.body.style.overflow = 'auto'; // Restore scrolling
+    }
+
+    // Close modal when clicking outside the image
+    window.onclick = function(event) {
+        const modal = document.getElementById('eventModal');
+        if (event.target === modal) {
+            closeModal();
+        }
+    }
+
+    // Close modal with Escape key
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+            closeModal();
+        }
+    });
+</script>
 
 <script>
 // Updated countdown script for May 10, 2025 wedding
