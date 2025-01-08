@@ -605,40 +605,45 @@
 </div>
 
 <script>
-    window.addEventListener('load', function() {
-        const audio = document.getElementById('background-music');
-        const musicBtn = document.querySelector('.music-btn');
-        const prompt = document.getElementById('audio-prompt');
-        let isPlaying = false;
-    
-        // Hide prompt and start music on click
-        document.addEventListener('click', function() {
-            if (!isPlaying) {
-                audio.play()
-                    .then(() => {
-                        isPlaying = true;
-                        musicBtn.classList.add('playing');
-                        prompt.classList.add('hidden');
-                    })
-                    .catch(error => {
-                        console.log('Playback failed:', error);
-                    });
-            }
-        }, { once: true });
-    
-        // Music button toggle
-        musicBtn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            if (isPlaying) {
-                audio.pause();
-                musicBtn.classList.remove('playing');
-            } else {
-                audio.play();
-                musicBtn.classList.add('playing');
-            }
-            isPlaying = !isPlaying;
-        });
+   window.addEventListener('load', function() {
+    const audio = document.getElementById('background-music');
+    const musicBtn = document.querySelector('.music-btn');
+    const prompt = document.getElementById('audio-prompt');
+    let isPlaying = false;
+
+    // Function to handle music play and prompt removal
+    const startMusic = () => {
+        if (!isPlaying) {
+            audio.play()
+                .then(() => {
+                    isPlaying = true;
+                    musicBtn.classList.add('playing');
+                    prompt.classList.add('hidden');
+                })
+                .catch(error => {
+                    console.log('Playback failed:', error);
+                });
+        }
+    };
+
+    // Handle both click and touch events
+    document.addEventListener('click', startMusic, { once: true });
+    document.addEventListener('touchstart', startMusic, { once: true });
+
+    // Music button toggle
+    musicBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        if (isPlaying) {
+            audio.pause();
+            musicBtn.classList.remove('playing');
+        } else {
+            audio.play();
+            musicBtn.classList.add('playing');
+        }
+        isPlaying = !isPlaying;
     });
+});
+
 </script>
 
 <script>
