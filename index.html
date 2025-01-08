@@ -33,9 +33,10 @@
 <body>
 
        <!-- Audio player -->
-        <audio id="background-music" autoplay loop>
-            <source src="img/Minani.mp3" type="audio/mp3">
-        </audio>
+       <audio id="background-music" autoplay loop>
+        <source src="img/Minani.mp3" type="audio/mp3">
+      </audio>
+    
 
         <!-- Initial prompt overlay
         <div id="audio-prompt" class="audio-prompt">
@@ -603,39 +604,44 @@
 
 
 </div>
-
 <script>
-    window.addEventListener('load', function () {
+    document.addEventListener('DOMContentLoaded', function () {
         const audio = document.getElementById('background-music');
         let isPlaying = false;
 
-        // Function to play music after user interaction
+        // Function to start music
         const startMusic = () => {
             if (!isPlaying) {
                 audio.play()
                     .then(() => {
                         isPlaying = true;
-                        console.log("Music is playing");
+                        console.log("Music started");
                     })
                     .catch(error => {
-                        console.log("Playback failed:", error);
+                        console.error("Audio playback blocked:", error);
                     });
             }
         };
 
-        // Handle both click and touch events for mobile and desktop
-        document.addEventListener('click', startMusic, { once: true });
-        document.addEventListener('touchstart', startMusic, { once: true });
+        // Use click and touch events for both mobile and desktop
+        document.body.addEventListener('click', startMusic);
+        document.body.addEventListener('touchstart', startMusic);
 
-        // Ensure audio resumes if paused due to browser restrictions
+        // For visibility change (resumes music if tab switches)
         document.addEventListener('visibilitychange', () => {
             if (document.visibilityState === 'visible' && isPlaying) {
                 audio.play();
             }
         });
+
+        // Remove prompt when interaction is detected
+        const prompt = document.getElementById('audio-prompt');
+        if (prompt) {
+            document.body.addEventListener('click', () => prompt.classList.add('hidden'));
+            document.body.addEventListener('touchstart', () => prompt.classList.add('hidden'));
+        }
     });
 </script>
-
 
 
 <script>
