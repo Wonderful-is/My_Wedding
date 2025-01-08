@@ -2594,23 +2594,12 @@ event file button
   z-index: 1000;
 }
 
-/* .modal-content {
-  position: relative;
-  background-color: #fefefe;
-  margin: 5% auto;
-  padding: 0;
-  max-width: 80%;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-} */
-
 .modal-content {
   position: relative;
   background-color: #fefefe;
-  margin: 2% auto; /* Reduced from 5% to bring content higher */
+  margin: 2% auto; 
   padding: 30px 0 0 0;
-  max-width: 90vh; /* This will help maintain better proportions */
+  max-width: 90vh; 
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
@@ -2640,30 +2629,18 @@ event file button
   transform: scale(1.1);
 }
 
-/* .event-image {
-  max-width: 100%;
-  height: auto;
-  display: block;
-  margin: 0;
-} */
-
 .event-image {
   max-width: 100%;
-  width: 100%; /* Added to ensure image fills container */
+  width: 100%; 
   height: auto;
   display: block;
   margin: 0;
-  vertical-align: middle; /* Helps remove any unexpected spacing */
+  vertical-align: middle;
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-  /* .modal-content {
-      margin: 15% auto;
-      width: 90%;
-  } */
-
-  .modal-content {
+   .modal-content {
     margin: 10% auto;
     width: 90%;
     max-width: none; 
