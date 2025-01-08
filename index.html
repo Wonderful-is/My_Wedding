@@ -37,15 +37,6 @@
         <source src="img/Minani.mp3" type="audio/mp3">
       </audio>
     
-
-        <!-- Initial prompt overlay
-        <div id="audio-prompt" class="audio-prompt">
-            <div class="prompt-content">
-                <i class="fa fa-music"></i>
-                <p>Click anywhere to enable music</p>
-            </div>
-        </div> -->
-
         <!-- Regular audio control -->
         <div class="audio-control">
             <button class="music-btn">
@@ -606,41 +597,48 @@
 </div>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const audio = document.getElementById('background-music');
-        let isPlaying = false;
+    const audio = document.getElementById('background-music');
+    const musicBtn = document.querySelector('.music-btn');
+    let isPlaying = false;
 
-        // Function to start music
-        const startMusic = () => {
-            if (!isPlaying) {
-                audio.play()
-                    .then(() => {
-                        isPlaying = true;
-                        console.log("Music started");
-                    })
-                    .catch(error => {
-                        console.error("Audio playback blocked:", error);
-                    });
-            }
-        };
+    // Function to start or stop music
+    const toggleMusic = () => {
+        if (isPlaying) {
+            audio.pause();
+            musicBtn.classList.remove('playing');
+        } else {
+            audio.play()
+                .then(() => musicBtn.classList.add('playing'))
+                .catch(error => console.error("Audio playback blocked:", error));
+        }
+        isPlaying = !isPlaying;
+    };
 
-        // Use click and touch events for both mobile and desktop
-        document.body.addEventListener('click', startMusic);
-        document.body.addEventListener('touchstart', startMusic);
-
-        // For visibility change (resumes music if tab switches)
-        document.addEventListener('visibilitychange', () => {
-            if (document.visibilityState === 'visible' && isPlaying) {
-                audio.play();
-            }
-        });
-
-        // Remove prompt when interaction is detected
-        const prompt = document.getElementById('audio-prompt');
-        if (prompt) {
-            document.body.addEventListener('click', () => prompt.classList.add('hidden'));
-            document.body.addEventListener('touchstart', () => prompt.classList.add('hidden'));
+    // Use click and touch events for both mobile and desktop
+    document.body.addEventListener('click', () => {
+        if (!isPlaying) {
+            audio.play()
+                .then(() => {
+                    isPlaying = true;
+                    musicBtn.classList.add('playing');
+                })
+                .catch(error => console.error("Audio playback blocked:", error));
         }
     });
+
+    musicBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        toggleMusic();
+    });
+
+    // Handle visibility change (resume music if tab switches back)
+    document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible' && isPlaying) {
+            audio.play();
+        }
+    });
+});
+
 </script>
 
 
