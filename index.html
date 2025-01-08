@@ -605,28 +605,37 @@
 </div>
 
 <script>
-    window.addEventListener('load', function() {
+    window.addEventListener('load', function () {
         const audio = document.getElementById('background-music');
         let isPlaying = false;
 
-        // Start music on first interaction (click or touch)
+        // Function to play music after user interaction
         const startMusic = () => {
             if (!isPlaying) {
                 audio.play()
                     .then(() => {
                         isPlaying = true;
+                        console.log("Music is playing");
                     })
                     .catch(error => {
-                        console.log('Playback failed:', error);
+                        console.log("Playback failed:", error);
                     });
             }
         };
 
-        // Handle click and touch events to start music
+        // Handle both click and touch events for mobile and desktop
         document.addEventListener('click', startMusic, { once: true });
         document.addEventListener('touchstart', startMusic, { once: true });
+
+        // Ensure audio resumes if paused due to browser restrictions
+        document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === 'visible' && isPlaying) {
+                audio.play();
+            }
+        });
     });
 </script>
+
 
 
 <script>
